@@ -1,8 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { Form, Button } from "react-bootstrap";
+import { postAdminUser } from "../../helper/axiosHelper";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+
+
+const initialState = {
+  fName: "",
+  lName: "",
+  phone: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const AdminSignup = () => {
+  const [form, setForm] = useState(initialState);
+  const navigateAdminLogin = useNavigate()
+
+  const handelOnChange = (e) => {
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+  };
+
+  const handelOnSubmit = async (e) => {
+    e.preventDefault();
+    const { confirmPassword, ...rest } = form;
+    if (confirmPassword !== rest.password) {
+      return alert("Password do not match!");
+    }
+
+    const pending =  postAdminUser(rest)
+
+    toast.promise(pending, {
+      pending: "Please wait"
+    })
+
+    const {status, message} = await pending;
+    toast[status](message) 
+    if(status === "success"){
+      navigateAdminLogin("/login")
+    }
+    
+     //toast.success() toast.error()
+     // setForm(initialState);
+  };
+
   const inputs = [
     {
       label: "First Name",
@@ -11,7 +55,7 @@ const AdminSignup = () => {
       type: "text",
       required: true,
     },
-   
+
     {
       label: "Last Name",
       name: "lName",
@@ -30,8 +74,7 @@ const AdminSignup = () => {
       label: "Phone",
       name: "phone",
       placeholder: "04xx xxx xxx",
-      type: "text",
-      required: true,
+      type: "number",
     },
     {
       label: "Password",
@@ -49,16 +92,22 @@ const AdminSignup = () => {
     },
   ];
   return (
-    <div className="bg-dark p-3 text-light">
-      <Form className="form-center border shaow-lg p-4">
+    <div className=" p-3 ">
+     
+      <Form
+        onSubmit={handelOnSubmit}
+        className="form-center border shaow-lg p-4"
+      >
         <h2>Create New Admin</h2>
         <hr />
         {inputs.map((item, i) => (
-          <CustomInput key={i} {...item}/>
+          <CustomInput key={i} {...item} onChange={handelOnChange} />
         ))}
-        
+
         <div className="d-grid mt-2">
-          <Button className="primary" type="submit">Create New Admin</Button>
+          <Button className="primary" type="submit">
+            Create New Admin
+          </Button>
         </div>
       </Form>
     </div>
