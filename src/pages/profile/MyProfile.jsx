@@ -3,7 +3,7 @@ import { UserLayout } from '../../components/layout/UserLayout'
 
 const MyProfile = () => {
   return (
-    <UserLayout title ="My Profile">
+  <UserLayout title ="My Profile">
       My Profile
     </UserLayout>
   )

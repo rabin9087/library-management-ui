@@ -5,11 +5,14 @@ import { Link } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { TbLogin2 } from "react-icons/tb";
 import { RiDashboardFill } from "react-icons/ri";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BiLogOut } from "react-icons/bi";
+import { logOutUser } from "../../pages/user_signup_login/userAction";
 
 export const Header = () => {
   const { user } = useSelector((state) => state.adminInfo);
+  const dispatch = useDispatch();
+
   return (
     <Navbar expand="lg" variant="dark" className="bg-dark">
       <Container fluid>
@@ -31,7 +34,11 @@ export const Header = () => {
                 <Link className="nav-link" to="/">
                   <FaHome /> Home
                 </Link>
-                <Link className="nav-link" to="/logout">
+                <Link
+                  className="nav-link"
+                  to="/"
+                  onClick={() => dispatch(logOutUser(user.email))}
+                >
                   <BiLogOut /> Logout
                 </Link>
               </>

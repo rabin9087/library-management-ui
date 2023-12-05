@@ -14,6 +14,8 @@ import { AdminePrivateRouter, PrivateRouter } from './components/private-router/
 import MyBook from './pages/my-books/MyBook';
 
 function App() {
+
+  
   return (
     <div className="">
       <Routes>
@@ -25,7 +27,7 @@ function App() {
         {/* private pages  */}
         <Route path='/admin-signup' element={<AdminePrivateRouter><AdminSignup /></AdminePrivateRouter>} />
         <Route path='/dashboard' element={<PrivateRouter><Dashboard /></PrivateRouter>} />
-        <Route path='/books' element={<AdminePrivateRouter><Books /></AdminePrivateRouter>} />
+        <Route path='/books' element={<PrivateRouter><Books /></PrivateRouter>} />
         <Route path='/my-books' element={<PrivateRouter><MyBook /></PrivateRouter>} />
         <Route path='/students' element={<AdminePrivateRouter><Student /></AdminePrivateRouter>} />
         <Route path='/burrow-history' element={<AdminePrivateRouter><BurrowHistory /></AdminePrivateRouter>} />

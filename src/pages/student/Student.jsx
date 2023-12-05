@@ -1,11 +1,13 @@
 import React from 'react'
 import { UserLayout } from '../../components/layout/UserLayout'
+import { useSelector } from 'react-redux';
 
 const Student = () => {
+  const { user } = useSelector((state) => state.adminInfo);
   return (
-    <UserLayout title ="Student">
-      Student
-    </UserLayout>
+   user?.role === "admin" ? <UserLayout title ="Students">
+      Students
+    </UserLayout> : <h1>Unauthorized</h1>
   )
 }
 

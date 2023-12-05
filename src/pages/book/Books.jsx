@@ -1,12 +1,16 @@
-import React from 'react'
-import { UserLayout } from '../../components/layout/UserLayout'
+import React from "react";
+import { UserLayout } from "../../components/layout/UserLayout";
+import { useSelector } from "react-redux";
 
 const Books = () => {
-  return (
-    <UserLayout title ="My Profile">
-      Books
+  const { user } = useSelector((state) => state.adminInfo);
+  return user?.role === "admin" ? (
+    <UserLayout title="My Profile">
+      
     </UserLayout>
-  )
-}
+  ) : (
+    <h1>Unauthorized</h1>
+  );
+};
 
-export default Books
+export default Books;

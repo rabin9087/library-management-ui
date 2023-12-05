@@ -4,24 +4,24 @@ import { Button, Form } from "react-bootstrap";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { toast } from "react-toastify";
 import { loginUser } from "../../helper/axiosHelper";
-import { getUserAction } from "./userAction";
+import { autoLogin, getUserAction } from "./userAction";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const location = useLocation();
   const emailRef = useRef("");
   const passwordRef = useRef("");
-
   const { user } = useSelector((state) => state.adminInfo);
 
+  const fromLoaction = location?.state?.from?.location?.pathname || "/dashboard"
   useEffect(() => {
     //redirect to Dashboard
-    user?._id &&
-    navigate("/dashboard")
-  }, [user?._id, navigate]);
+    user?._id && navigate(fromLoaction);
+    dispatch(autoLogin());
+  }, [user?._id, navigate, dispatch, fromLoaction]);
 
   const handelOnSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const Login = () => {
     if (status === "success") {
       const { accessJWT, refreshJWT } = jwts;
       sessionStorage.setItem("accessJWT", accessJWT);
-      localStorage.setItem("refreshJWTW", refreshJWT);
+      localStorage.setItem("refreshJWT", refreshJWT);
 
       //fetch user infor and redirect to dashboard
       dispatch(getUserAction());
