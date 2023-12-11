@@ -16,13 +16,14 @@ import NewBook from './pages/book/NewBook';
 import { useEffect } from 'react';
 import { getAllBooksAction } from './pages/book/bookAction';
 import { useDispatch } from 'react-redux';
+import UpdateBook from './pages/book/UpdateBook';
 
 function App() {
   const dispatch = useDispatch();
-  useEffect(()=> {
+  useEffect(() => {
     dispatch(getAllBooksAction())
   }, [])
-  
+
   return (
     <div className="">
       <Routes>
@@ -36,6 +37,7 @@ function App() {
         <Route path='/dashboard' element={<PrivateRouter><Dashboard /></PrivateRouter>} />
         <Route path='/books' element={<AdminePrivateRouter><Books /></AdminePrivateRouter>} />
         <Route path='/newBook' element={<AdminePrivateRouter><NewBook /></AdminePrivateRouter>} />
+        <Route path='/edit-book/:_id' element={<AdminePrivateRouter><UpdateBook /></AdminePrivateRouter>} />
         <Route path='/my-books' element={<PrivateRouter><MyBook /></PrivateRouter>} />
         <Route path='/students' element={<AdminePrivateRouter><Student /></AdminePrivateRouter>} />
         <Route path='/burrow-history' element={<AdminePrivateRouter><BurrowHistory /></AdminePrivateRouter>} />

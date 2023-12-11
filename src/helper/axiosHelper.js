@@ -94,11 +94,30 @@ export const postBook = async (data) => {
     })
 }
 
-export const getBook = async () => {
+export const getBook = async (_id) => {
 
     return axiosProcessor({
         method: 'get',
+        url: _id ? bookEP + "/" + _id : bookEP,
+        isPrivate: true
+    })
+}
+
+export const updateBook = async (data) => {
+
+    return axiosProcessor({
+        method: 'put',
         url: bookEP,
+        data,
+        isPrivate: true
+    })
+}
+
+export const deleteBook = async (_id) => {
+
+    return axiosProcessor({
+        method: 'delete',
+        url: bookEP + "/" + _id ,
         isPrivate: true
     })
 }

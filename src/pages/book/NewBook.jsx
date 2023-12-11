@@ -3,25 +3,26 @@ import { UserLayout } from "../../components/layout/UserLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "react-bootstrap";
 import { BookTabe } from "./BookTable";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { postNewBookAction } from "./bookAction";
 
 const NewBook = () => {
-    const dispatch = useDispatch();
-    const [book, setBook] = useState({ })
+  const dispatch = useDispatch();
+  const [book, setBook] = useState({});
+  const navigate = useNavigate();
 
   const handelOnSubmit = (e) => {
     e.preventDefault();
-    dispatch(postNewBookAction(book))
-    console.log(book)
+    dispatch(postNewBookAction(book)) && navigate("/books");
   };
   const handelOnChange = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
     setBook({
-        ...book, [name]: value,
-    })
-  }
+      ...book,
+      [name]: value,
+    });
+  };
   const inputs = [
     {
       label: "Book Name",
@@ -73,17 +74,17 @@ const NewBook = () => {
       <Link to="/books" className=" ms-3">
         <Button variant="secondary">&lt; Back</Button>
       </Link>
-      <div className="mt-3  ms-3">
+      <div className="mt-3  m-3">
         <Form onSubmit={handelOnSubmit} className="">
           <h4>Enter books details below</h4>
           <hr />
           {inputs.map((item, i) => (
-            <CustomInput key={i} {...item} onChange= {handelOnChange}/>
+            <CustomInput key={i} {...item} onChange={handelOnChange} />
           ))}
 
           <div className="d-grid mt-2">
             <Button className="primary" type="submit">
-              Login
+              Add New Book
             </Button>
           </div>
         </Form>

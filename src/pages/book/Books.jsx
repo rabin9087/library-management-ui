@@ -13,7 +13,6 @@ const Books = () => {
         </Link>
       </div>
       {/* book listing table */}
-      book table here
       <BookTabe />
     </UserLayout>
   );
