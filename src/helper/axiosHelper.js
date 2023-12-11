@@ -1,7 +1,7 @@
 import axios from 'axios'
 const rootEP = process.env.REACT_APP_ROOTAPI;
 const userEP = rootEP + "/users";
-
+const bookEP = rootEP + "/books"
 
 const getAccessJWT = () => {
     return sessionStorage.getItem("accessJWT")
@@ -81,5 +81,24 @@ export const getNewAccessJwt = async () => {
         url: userEP + "/get-accessjwt",
         isPrivate: true,
         refreshToken: true
+    })
+}
+
+export const postBook = async (data) => {
+
+    return axiosProcessor({
+        method: 'post',
+        url: bookEP,
+        data,
+        isPrivate: true
+    })
+}
+
+export const getBook = async () => {
+
+    return axiosProcessor({
+        method: 'get',
+        url: bookEP,
+        isPrivate: true
     })
 }

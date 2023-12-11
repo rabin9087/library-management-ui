@@ -3,13 +3,26 @@ import { useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
 
 export const PrivateRouter = ({ children }) => {
-    const location = useLocation();
+  const location = useLocation();
   const { user } = useSelector((state) => state.adminInfo);
-  return user?._id ? children : <Navigate to="/login" 
-  state = {{from: {location}}}/>;
+  return user?._id ? (
+    children
+  ) : (
+    <Navigate to="/login" state={{ from: { location } }} />
+  );
 };
 
 export const AdminePrivateRouter = ({ children }) => {
-    const { user } = useSelector((state) => state.adminInfo);
-    return user?.role === "admin" ? children : <h1>You are not authorized</h1>;
-  };
+  const location = useLocation();
+  const { user } = useSelector((state) => state.adminInfo);
+
+  //if there is user._id that means user is logged in\
+  //if user.role === "admin" that user id admin
+
+  if(user?.Id && user !=="admin"){
+    return <h1>Unauthorized</h1>
+  }
+  return user?.role === "admin" ? children : <h1>
+    <Navigate to="/login" state={{ from: { location } }} />
+  </h1>;
+};

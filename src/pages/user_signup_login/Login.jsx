@@ -16,12 +16,8 @@ const Login = () => {
   const passwordRef = useRef("");
   const { user } = useSelector((state) => state.adminInfo);
 
-  const fromLoaction = location?.state?.from?.location?.pathname || "/dashboard"
-  useEffect(() => {
-    //redirect to Dashboard
-    user?._id && navigate(fromLoaction);
-    dispatch(autoLogin());
-  }, [user?._id, navigate, dispatch, fromLoaction]);
+  const fromLoaction =
+    location?.state?.from?.location?.pathname || "/dashboard";
 
   const handelOnSubmit = async (e) => {
     e.preventDefault();
@@ -45,10 +41,15 @@ const Login = () => {
       dispatch(getUserAction());
 
       return;
-      //navigateAdmineDashboard("/")
     }
     toast[status](message);
   };
+
+  useEffect(() => {
+    //redirect to Dashboard
+    user?._id && navigate(fromLoaction);
+    dispatch(autoLogin());
+  }, [user?._id, navigate, dispatch, fromLoaction]);
 
   const inputs = [
     {
