@@ -14,7 +14,7 @@ const Login = () => {
   const location = useLocation();
   const emailRef = useRef("");
   const passwordRef = useRef("");
-  const { user } = useSelector((state) => state.adminInfo);
+  const { user } = useSelector((state) => state.userInfo);
 
   const fromLoaction =
     location?.state?.from?.location?.pathname || "/dashboard";

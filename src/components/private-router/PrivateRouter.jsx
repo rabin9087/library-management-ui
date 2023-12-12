@@ -4,7 +4,7 @@ import { Navigate, useLocation } from "react-router-dom";
 
 export const PrivateRouter = ({ children }) => {
   const location = useLocation();
-  const { user } = useSelector((state) => state.adminInfo);
+  const { user } = useSelector((state) => state.userInfo);
   return user?._id ? (
     children
   ) : (
@@ -14,7 +14,7 @@ export const PrivateRouter = ({ children }) => {
 
 export const AdminePrivateRouter = ({ children }) => {
   const location = useLocation();
-  const { user } = useSelector((state) => state.adminInfo);
+  const { user } = useSelector((state) => state.userInfo);
 
   //if there is user._id that means user is logged in\
   //if user.role === "admin" that user id admin

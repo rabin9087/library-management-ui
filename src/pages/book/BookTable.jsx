@@ -49,8 +49,8 @@ export const BookTabe = () => {
                   <img
                     src={thumbnail}
                     alt=""
-                    width={"140px"}
-                    height={"160px"}
+                    width={"120px"}
+                    height={"120px"}
                   />
                 </td>
                 <td>

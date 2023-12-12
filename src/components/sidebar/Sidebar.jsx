@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const Sidebar = () => {
  
-    const { user } = useSelector((state) => state.adminInfo);
+    const { user } = useSelector((state) => state.userInfo);
    
   return (
     <div className="p-2 sidebar">

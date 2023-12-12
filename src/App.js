@@ -17,12 +17,15 @@ import { useEffect } from 'react';
 import { getAllBooksAction } from './pages/book/bookAction';
 import { useDispatch } from 'react-redux';
 import UpdateBook from './pages/book/UpdateBook';
+import BookLanding from './pages/book/BookLanding';
+import { autoLogin } from './pages/user_signup_login/userAction';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllBooksAction())
-  }, [])
+    dispatch(autoLogin())
+  }, [dispatch])
 
   return (
     <div className="">
@@ -31,6 +34,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
+        <Route path='/book/:_id' element={<BookLanding />} />
 
         {/* private pages  */}
         <Route path='/admin-signup' element={<AdminePrivateRouter><AdminSignup /></AdminePrivateRouter>} />

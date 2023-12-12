@@ -3,7 +3,7 @@ import userReducer from './pages/user_signup_login/userSlice'
 import bookReducer from './pages/book/bookSlice';
 const store = configureStore({
     reducer: {
-        adminInfo: userReducer,
+        userInfo: userReducer,
         bookInfo: bookReducer,
     }
 })

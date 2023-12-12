@@ -10,7 +10,7 @@ import { BiLogOut } from "react-icons/bi";
 import { logOutUser } from "../../pages/user_signup_login/userAction";
 
 export const Header = () => {
-  const { user } = useSelector((state) => state.adminInfo);
+  const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
 
   return (
@@ -24,15 +24,15 @@ export const Header = () => {
           <Nav className="ms-auto">
             {user?._id ? (
               <>
+                <Link className="nav-link" to="/">
+                  <FaHome /> Home
+                </Link>
                 <Link
                   to="/dashboard"
                   className="nav-link d-flex align-items-center gap-2 "
                 >
                   {""}
                   <RiDashboardFill /> Dashboard
-                </Link>
-                <Link className="nav-link" to="/">
-                  <FaHome /> Home
                 </Link>
                 <Link
                   className="nav-link"
