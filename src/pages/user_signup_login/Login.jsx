@@ -79,7 +79,7 @@ const Login = () => {
           onSubmit={handelOnSubmit}
           className="form-center border shaow-lg p-4"
         >
-          <h2>Welcome Admin Login Area</h2>
+          <h2>Welcome Back</h2>
           <hr />
           {inputs.map((item, i) => (
             <CustomInput key={i} {...item} />
@@ -90,6 +90,8 @@ const Login = () => {
               Login
             </Button>
           </div>
+          <div className="text-end">New here? <a href="/signup">Sign Up Now</a></div>
+
         </Form>
       </div>
     </MainLayout>

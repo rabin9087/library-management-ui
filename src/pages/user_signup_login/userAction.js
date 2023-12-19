@@ -1,5 +1,5 @@
-import { LogoutUser, getNewAccessJwt, getUser } from "../../helper/axiosHelper";
-import { setUser } from './userSlice'
+import { LogoutUser, getAllUsers, getNewAccessJwt, getUser, postUser } from "../../helper/axiosHelper";
+import { setAllUser, setUser } from './userSlice'
 
 export const getUserAction = () => async (dispatch) => {
     const { status, user } = await getUser();
@@ -38,4 +38,13 @@ export const logOutUser = (email) => async (dispatch) => {
 
 
     //redirect to home page
+}
+
+
+export const getAllUserAction = () => async (dispatch) => {
+    const { status, message, users } = await getAllUsers();
+    if (status === "success") {
+        //send user to the store
+        dispatch(setAllUser(users))
+    }
 }

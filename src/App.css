@@ -54,3 +54,7 @@ a {
   position: relative;
   top: -1.5rem;
 }
+
+.new-star :hover {
+  cursor: pointer;
+}

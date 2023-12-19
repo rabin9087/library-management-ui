@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { Form, Button } from "react-bootstrap";
-import { postAdminUser } from "../../helper/axiosHelper";
+import { postAdminUser, postUser } from "../../helper/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { UserLayout } from "../../components/layout/UserLayout";
 
 
 const initialState = {
@@ -31,7 +32,7 @@ const AdminSignup = () => {
       return alert("Password do not match!");
     }
 
-    const pending =  postAdminUser(rest)
+    const pending =  postUser(rest)
 
     toast.promise(pending, {
       pending: "Please wait"
@@ -92,8 +93,8 @@ const AdminSignup = () => {
     },
   ];
   return (
+    <UserLayout>
     <div className=" p-3 ">
-     
       <Form
         onSubmit={handelOnSubmit}
         className="form-center border shaow-lg p-4"
@@ -111,6 +112,7 @@ const AdminSignup = () => {
         </div>
       </Form>
     </div>
+    </UserLayout>
   );
 };
 

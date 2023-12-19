@@ -14,17 +14,20 @@ import { AdminePrivateRouter, PrivateRouter } from './components/private-router/
 import MyBook from './pages/my-books/MyBook';
 import NewBook from './pages/book/NewBook';
 import { useEffect } from 'react';
-import { getAllBooksAction } from './pages/book/bookAction';
+import { fetchReviewsAction, getAllBooksAction } from './pages/book/bookAction';
 import { useDispatch } from 'react-redux';
 import UpdateBook from './pages/book/UpdateBook';
 import BookLanding from './pages/book/BookLanding';
 import { autoLogin } from './pages/user_signup_login/userAction';
+import Admins from './pages/admins/Admins';
+import ReviewPage from './pages/book/ReviewPage';
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAllBooksAction())
     dispatch(autoLogin())
+    dispatch(fetchReviewsAction())
   }, [dispatch])
 
   return (
@@ -44,6 +47,8 @@ function App() {
         <Route path='/edit-book/:_id' element={<AdminePrivateRouter><UpdateBook /></AdminePrivateRouter>} />
         <Route path='/my-books' element={<PrivateRouter><MyBook /></PrivateRouter>} />
         <Route path='/students' element={<AdminePrivateRouter><Student /></AdminePrivateRouter>} />
+        <Route path='/reviews' element={<AdminePrivateRouter><ReviewPage /></AdminePrivateRouter>} />
+        <Route path='/all-admins' element={<AdminePrivateRouter><Admins /></AdminePrivateRouter>} />
         <Route path='/burrow-history' element={<AdminePrivateRouter><BurrowHistory /></AdminePrivateRouter>} />
         <Route path='/myProfile' element={<PrivateRouter><MyProfile /></PrivateRouter>} />
       </Routes>

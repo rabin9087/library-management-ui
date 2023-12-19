@@ -7,6 +7,8 @@ import { Button, Col, Container, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { FaStarHalfAlt } from "react-icons/fa";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import { postBurrowAction } from "../burrow-history/burrowActions";
+import ReviewStars from "../../components/review/ReviewStars";
 
 const BookLanding = () => {
   //grab the _id from url parameter
@@ -16,7 +18,7 @@ const BookLanding = () => {
   const [showReview, setShowReview] = useState(false);
 
   //pull the book infor from the state and implement in UI below
-  const { selectedBook } = useSelector((state) => state.bookInfo);
+  const { selectedBook, reviews } = useSelector((state) => state.bookInfo);
   const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
@@ -24,12 +26,45 @@ const BookLanding = () => {
     _id && dispatch(getABookAction(_id));
   }, [_id, dispatch]);
 
-  const { thumbnail, name, author, publishYear, description } = selectedBook;
+  const {
+    thumbnail,
+    name,
+    author,
+    publishYear,
+    description,
+    isAvailable,
+    dueDate,
+  } = selectedBook;
+
+  const handelOnBurrow = () => {
+    if (
+      window.confirm(
+        "Aru sure want to burrow this book and return in 15 days ?"
+      )
+    ) {
+      const obj = {
+        bookId: _id,
+        bookName: name,
+        thumbnail,
+        userId: user._id,
+        userName: user.fName,
+      };
+      dispatch(postBurrowAction(obj));
+    }
+  };
+
+  const bookSpecificReviews = reviews.filter(
+    (review) => review.status === "active" && review.bookId === _id
+  );
+
+  const averageRating =
+    bookSpecificReviews.reduce((acc, item) => acc + item.rating, 0) /
+    bookSpecificReviews.length;
 
   return (
     <MainLayout>
       <Container>
-        <Row className="mt-4" g-3>
+        <Row className="mt-4">
           <Col md={5} className="">
             <img
               src={thumbnail}
@@ -45,21 +80,24 @@ const BookLanding = () => {
               Author: {author} <br />
               Publish Year: {publishYear}
             </p>
-            <p className="mb-5">
-              <FaStar className="text-warning" />
-              <FaStar className="text-warning" />
-              <FaStar className="text-warning" />
-              <FaStar className="text-warning" />
-              <FaStarHalfAlt className="text-warning" />
-            </p>
+
+          {/* Rating of individual book */}
+            {/* <ReviewStars averageRating={averageRating} /> */}
+
             <p className="pt-3">Summary: {description?.slice(0, 120)}...</p>
             <p className="d-grid pt-2">
-              {user?._id ? (
-                <Button>Burrow Book</Button>
+              {isAvailable ? (
+                user?._id ? (
+                  <Button onClick={handelOnBurrow}>Burrow Book</Button>
+                ) : (
+                  <Link to="/login" className="d-grid">
+                    <Button>Login To Burrow</Button>
+                  </Link>
+                )
               ) : (
-                <Link to="/login" className="d-grid">
-                  <Button>Log in To Burrow</Button>
-                </Link>
+                <Button disabled={true}>
+                  Avaialbe from: {dueDate?.slice(0, 10)}
+                </Button>
               )}
             </p>
           </Col>
@@ -80,31 +118,20 @@ const BookLanding = () => {
 
             {showReview ? (
               <>
-                <div className="d-flex gap-3 shadow mb-4">
-                  <div className="avatar">RA</div>
-                  <div className="review">
-                    <h4>Best Book ever</h4>
-                    <p className="mb-3">
-                      <span>
-                        <FaStar className="text-warning" />
-                        <FaStar className="text-warning" />
-                        <FaStar className="text-warning" />
-                        <FaStar className="text-warning" />
-                        <FaStarHalfAlt className="text-warning" />
-                      </span>
-                      <small>5 days ago</small>
-                    </p>
-                    <p className="lorem">
-                      Until recently, the prevailing view assumed lorem ipsum
-                      was born as a nonsense text. “It's not Latin, though it
-                      looks like it, and it actually says nothing,” Before &
-                      After magazine answered a curious reader, “Its ‘words’
-                      loosely approximate the frequency with which letters occur
-                      in English, which is why at a glance it looks pretty
-                      real.”
-                    </p>
+                {" "}
+                {bookSpecificReviews.map((review) => (
+                  <div className="d-flex gap-3 shadow mb-4">
+                    <div className="avatar">RA</div>
+                    <div className="review">
+                      <h4>{review.title}</h4>
+                      <p className="mb-3">
+                        <ReviewStars averageRating={review.rating} />
+                        <small>{review.createdAt?.slice(0, 10)}</small>
+                      </p>
+                      <p className="lorem"></p>
+                    </div>
                   </div>
-                </div>
+                ))}
               </>
             ) : (
               description

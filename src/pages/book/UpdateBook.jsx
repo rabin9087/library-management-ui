@@ -33,7 +33,7 @@ const UpdateBook = () => {
     if (!window.confirm("Are you sure you want to update this book?")) {
       return;
     }
-    const { __v, updatedAt, isbn, createdAt, ...rest } = form;
+    const { __v, updatedAt, isAvailable, dueDate, isbn, createdAt, ...rest } = form;
     dispatch(updateBookAction(rest)) && navigate("/books");
   };
   
