@@ -81,8 +81,8 @@ const BookLanding = () => {
               Publish Year: {publishYear}
             </p>
 
-          {/* Rating of individual book */}
-            {/* <ReviewStars averageRating={averageRating} /> */}
+            {/* Rating of individual book */}
+            <ReviewStars averageRating={averageRating} />
 
             <p className="pt-3">Summary: {description?.slice(0, 120)}...</p>
             <p className="d-grid pt-2">

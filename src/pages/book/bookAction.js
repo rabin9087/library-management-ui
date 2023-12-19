@@ -83,7 +83,6 @@ export const postNewReviewAction = (reviewObj) => async (dispatch) => {
 
 export const fetchReviewsAction = () => async (dispatch) => {  
     const { status, message, reviews } = await fetchReview()
-    toast[status](message)
     if (status === "success") {
 
         dispatch(setReviews(reviews))

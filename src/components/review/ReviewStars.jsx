@@ -5,10 +5,12 @@ import { FaRegStar } from "react-icons/fa";
 
 const maxStar = 5;
 const ReviewStars = ({ averageRating = maxStar }) => {
+  console.log("object");
+  console.log(averageRating);
   const fullRating = Math.floor(averageRating); // natural whole number
   const isHalfStar = averageRating > fullRating; //true or false
 
-  console.log(fullRating)
+  console.log(fullRating);
   const emptyStar = isHalfStar
     ? maxStar - fullRating + 1
     : maxStar - fullRating;
