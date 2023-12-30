@@ -17,7 +17,7 @@ export const Header = () => {
     <Navbar expand="lg" variant="dark" className="bg-dark">
       <Container fluid>
         <Link className="navbar-brand" to={"/"}>
-          LM
+          Library Managemant
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav text-end">

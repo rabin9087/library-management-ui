@@ -13,7 +13,8 @@ const Sidebar = () => {
 
   return (
     <div className="p-2 sidebar">
-      <div className="top mt-5">CL-Admin</div>
+      <div className="top mt-5 text-center">
+        <h3>{user.role?.slice(0,1).toUpperCase()}{user.role?.slice(1)} <br /> Dashboard </h3></div>
       <hr />
       <div className="bottom">
         <ul>

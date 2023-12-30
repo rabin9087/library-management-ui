@@ -19,7 +19,7 @@ export const AdminePrivateRouter = ({ children }) => {
   //if there is user._id that means user is logged in\
   //if user.role === "admin" that user id admin
 
-  if(user?.Id && user !=="admin"){
+  if(user?._id && user?.role !=="admin"){
     return <h1>Unauthorized</h1>
   }
   return user?.role === "admin" ? children : <h1>

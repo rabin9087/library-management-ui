@@ -12,7 +12,7 @@ export const UsersTable = ({ role }) => {
         <Link to={"/admin-signup"}><Button >Add New Admin</Button></Link>
       </div>
       <p className="d-flex justify-content-between">
-        <label htmlFor=""> {users.length} {role} found!</label>
+        <label htmlFor=""> {users.length} {role + "s"} found!</label>
         <div>
           <Form.Control
             type="text"

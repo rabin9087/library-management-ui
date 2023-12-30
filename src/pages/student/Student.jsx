@@ -9,7 +9,7 @@ const Student = () => {
   const { user } = useSelector((state) => state.userInfo);
 
   useEffect(() => {
-    user?.role === "student" && dispatch(getAllUserAction())
+    user?.role === "admin" && dispatch(getAllUserAction())
   }, [user?.role, dispatch])
 
   return (

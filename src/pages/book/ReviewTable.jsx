@@ -25,10 +25,6 @@ export const ReviewTable = () => {
     }
   };
 
-  useEffect(()=> {
-    dispatch(fetchReviewsAction())
-  }, [dispatch])
-
   return (
     <div className="m-3">
       <p className="d-flex justify-content-between">
@@ -49,8 +45,8 @@ export const ReviewTable = () => {
             <th>status</th>
             <th>Book Name</th>
             <th>Review Title</th>
-            <th>Rating</th>
             <th>Message</th>
+            <th>Rating</th>
             <th>Delete</th>
           </tr>
         </thead>
@@ -76,7 +72,7 @@ export const ReviewTable = () => {
                 <td>{message} ....</td>
                 <td>{rating}</td>
                 <td>
-                  <Button variant="danger" onClick={handelOnDelete(_id)}>Delete</Button>
+                  <Button variant="danger" onClick={() =>handelOnDelete(_id)}>Delete</Button>
                 </td>
               </tr>
             )

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MainLayout } from "../../components/layout/MainLayout";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getABookAction } from "./bookAction";
 import { Button, Col, Container, Row } from "react-bootstrap";
@@ -10,10 +10,12 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { postBurrowAction } from "../burrow-history/burrowActions";
 import ReviewStars from "../../components/review/ReviewStars";
 
+const maxRating = 5;
 const BookLanding = () => {
   //grab the _id from url parameter
   const { _id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [showReview, setShowReview] = useState(false);
 
@@ -39,9 +41,14 @@ const BookLanding = () => {
   const handelOnBurrow = () => {
     if (
       window.confirm(
-        "Aru sure want to burrow this book and return in 15 days ?"
+        "Are you sure want to burrow this book and return in 15 days ?"
       )
     ) {
+      console.log(
+        "bookSpecificReviews, averageRating",
+        bookSpecificReviews,
+        averageRating
+      );
       const obj = {
         bookId: _id,
         bookName: name,
@@ -51,6 +58,8 @@ const BookLanding = () => {
       };
       dispatch(postBurrowAction(obj));
     }
+
+    navigate("/")
   };
 
   const bookSpecificReviews = reviews.filter(
@@ -82,7 +91,9 @@ const BookLanding = () => {
             </p>
 
             {/* Rating of individual book */}
-            <ReviewStars averageRating={averageRating} />
+            <ReviewStars
+              averageRating={averageRating > 0 ? averageRating : maxRating}
+            />
 
             <p className="pt-3">Summary: {description?.slice(0, 120)}...</p>
             <p className="d-grid pt-2">

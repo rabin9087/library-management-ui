@@ -5,12 +5,9 @@ import { FaRegStar } from "react-icons/fa";
 
 const maxStar = 5;
 const ReviewStars = ({ averageRating = maxStar }) => {
-  console.log("object");
-  console.log(averageRating);
   const fullRating = Math.floor(averageRating); // natural whole number
   const isHalfStar = averageRating > fullRating; //true or false
 
-  console.log(fullRating);
   const emptyStar = isHalfStar
     ? maxStar - fullRating + 1
     : maxStar - fullRating;
@@ -20,16 +17,17 @@ const ReviewStars = ({ averageRating = maxStar }) => {
       <span>
         {Array(fullRating)
           .fill("")
-          .map((it, i) => (
-            <FaStar className="text-warning" />
+          .map((item, i) => (
+            <FaStar className="text-warning" key={i} />
           ))}
+        &nbsp;&nbsp;
         {emptyStar && <FaStarHalfAlt className="text-warning" />}
         {Array(emptyStar)
           .fill("")
           .map((item, i) => (
-            <FaRegStar className="text-warning" />
+            <FaRegStar className="text-warning" key={i} />
           ))}{" "}
-        / {averageRating}
+        &nbsp; / {averageRating}
       </span>
     </div>
   );

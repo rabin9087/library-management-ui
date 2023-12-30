@@ -5,8 +5,14 @@ import { BookTabe } from "./BookTable";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBurrows } from "../../helper/axiosHelper";
+import { getAllBooksAction } from "./bookAction";
 
 const Books = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllBooksAction());
+  }, [dispatch]);
 
   return (
     <UserLayout title="All available Books">

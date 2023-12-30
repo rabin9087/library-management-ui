@@ -30,7 +30,6 @@ const axiosProcessor = async (obj) => {
         if (erroMsg?.includes("jwt expired")) {
             //get new access token
             const { accessJWT } = await getNewAccessJwt()
-            console.log((accessJWT))
             if (accessJWT) {
                 sessionStorage.setItem("accessJWT", accessJWT)
 
@@ -54,8 +53,8 @@ export const postAdminUser = async (data) => {
     })
 }
 
-export const postUser = async ( data, role) => {
-    const url = role === "admin" ? userEP + "/admin-user": userEP 
+export const postUser = async (data, role) => {
+    const url = role === "admin" ? userEP + "/admin-user" : userEP
     return axiosProcessor({
         method: 'post',
         url,
@@ -186,19 +185,18 @@ export const postReview = async (data) => {
 }
 
 export const fetchReview = async () => {
-//check if admin or pubic requested
+    //check if admin or pubic requested
     return axiosProcessor({
         method: 'get',
         url: reviewEP,
-        
     })
 }
 
-export const updateReview = async ({_id, ...data}) => {
+export const updateReview = async ({ _id, ...data }) => {
 
     return axiosProcessor({
         method: 'patch',
-        url: reviewEP +"/" + _id,
+        url: reviewEP + "/" + _id,
         data,
         isPrivate: true
     })
@@ -208,7 +206,7 @@ export const deleteReview = async (_id) => {
 
     return axiosProcessor({
         method: 'delete',
-        url: reviewEP +"/" + _id,
+        url: reviewEP + "/" + _id,
         isPrivate: true
     })
 }
