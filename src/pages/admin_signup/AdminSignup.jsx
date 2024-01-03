@@ -5,7 +5,7 @@ import { postAdminUser, postUser } from "../../helper/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { UserLayout } from "../../components/layout/UserLayout";
-
+import { useSelector } from "react-redux";
 
 const initialState = {
   fName: "",
@@ -18,7 +18,10 @@ const initialState = {
 
 const AdminSignup = () => {
   const [form, setForm] = useState(initialState);
-  const navigateAdminLogin = useNavigate()
+  const navigateAdminLogin = useNavigate();
+
+  const { user } = useSelector((state) => state.userInfo);
+  const role = user.role;
 
   const handelOnChange = (e) => {
     const { name, value } = e.target;
@@ -32,20 +35,20 @@ const AdminSignup = () => {
       return alert("Password do not match!");
     }
 
-    const pending =  postUser(rest)
+    const pending = postUser(rest, role);
 
     toast.promise(pending, {
-      pending: "Please wait"
-    })
+      pending: "Please wait",
+    });
 
-    const {status, message} = await pending;
-    toast[status](message) 
-    if(status === "success"){
-      navigateAdminLogin("/login")
+    const { status, message } = await pending;
+    toast[status](message);
+    if (status === "success") {
+      navigateAdminLogin("/login");
     }
-    
-     //toast.success() toast.error()
-     // setForm(initialState);
+
+    //toast.success() toast.error()
+    // setForm(initialState);
   };
 
   const inputs = [
@@ -94,24 +97,24 @@ const AdminSignup = () => {
   ];
   return (
     <UserLayout>
-    <div className=" p-3 ">
-      <Form
-        onSubmit={handelOnSubmit}
-        className="form-center border shaow-lg p-4"
-      >
-        <h2>Create New Admin</h2>
-        <hr />
-        {inputs.map((item, i) => (
-          <CustomInput key={i} {...item} onChange={handelOnChange} />
-        ))}
+      <div className=" p-3 ">
+        <Form
+          onSubmit={handelOnSubmit}
+          className="form-center border shaow-lg p-4"
+        >
+          <h2>Create New Admin</h2>
+          <hr />
+          {inputs.map((item, i) => (
+            <CustomInput key={i} {...item} onChange={handelOnChange} />
+          ))}
 
-        <div className="d-grid mt-2">
-          <Button className="primary" type="submit">
-            Create New Admin
-          </Button>
-        </div>
-      </Form>
-    </div>
+          <div className="d-grid mt-2">
+            <Button className="primary" type="submit">
+              Create New Admin
+            </Button>
+          </div>
+        </Form>
+      </div>
     </UserLayout>
   );
 };
