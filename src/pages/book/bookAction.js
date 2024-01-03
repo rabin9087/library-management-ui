@@ -21,10 +21,10 @@ export const getABookAction = (_id) => async (dispatch) => {
 
 export const postNewBookAction = (bookObj) => async (dispatch) => {
     const pending = postBook(bookObj)
-    const { status, message } = await pending
     toast.promise(pending, {
         pending: "Pease wait ...."
     })
+    const { status, message } = await pending
     toast[status](message)
 
     if (status === "success") {
@@ -81,7 +81,7 @@ export const postNewReviewAction = (reviewObj) => async (dispatch) => {
     }
 }
 
-export const fetchReviewsAction = () => async (dispatch) => {  
+export const fetchReviewsAction = () => async (dispatch) => {
     const { status, message, reviews } = await fetchReview()
     if (status === "success") {
         dispatch(setReviews(reviews))

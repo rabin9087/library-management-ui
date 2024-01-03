@@ -1,23 +1,38 @@
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import Search from "../searchComponent/Search";
+import { useState } from "react";
 
 export const UsersTable = ({ role }) => {
   const { allUsers } = useSelector((state) => state.userInfo);
   const users = allUsers.filter((item) => item.role === role);
+  const [tempUsers, setTempUsers] = useState(users);
   return (
     <div className="m-3">
       <div className="text-end mb-4">
-        <Link to={"/admin-signup"}><Button >Add New Admin</Button></Link>
+        <Link to={"/admin-signup"}>
+          <Button>Add New Admin</Button>
+        </Link>
       </div>
       <p className="d-flex justify-content-between">
-        <label htmlFor=""> {users.length} {role + "s"} found!</label>
+        <label htmlFor="">
+          {" "}
+          {tempUsers.length} {role + "s"} found!
+        </label>
+
+        {tempUsers.length === 0 && (
+          <div className="border p-2 shadow-lg rounded text-danger">
+            <h3 className=" text-danger ">No users found!</h3>
+          </div>
+        )}
         <div>
-          <Form.Control
-            type="text"
-            placeholder="search book by name"
-            className="text"
+          <Search
+            data={users}
+            setSearchedData={setTempUsers}
+            type={"users"}
+            placeholder={"Search by email"}
           />
         </div>
       </p>
@@ -34,7 +49,7 @@ export const UsersTable = ({ role }) => {
           </tr>
         </thead>
         <tbody>
-          {users.map(
+          {tempUsers.map(
             ({ _id, status, fName, lName, email, phone, createdAt }, i) => (
               <tr key={_id}>
                 <td>{1 + i}.</td>

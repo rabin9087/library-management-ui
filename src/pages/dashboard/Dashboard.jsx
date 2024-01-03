@@ -46,7 +46,7 @@ const Dashboard = () => {
 
         {user?.role === "admin" && (
           <Row>
-            <Col>
+            <Col className="piechart">
               <BooksStatusChart
                 toolTips={
                   <Tooltip contentStyle={{ backgroundColor: "yellow" }} />

@@ -18,7 +18,6 @@ const Login = () => {
 
   const fromLoaction =
     location?.state?.from?.location?.pathname || "/dashboard";
-
   const handelOnSubmit = async (e) => {
     e.preventDefault();
 
@@ -85,13 +84,19 @@ const Login = () => {
             <CustomInput key={i} {...item} />
           ))}
 
+          <div className="d-flex justify-content-center border shaow-lg p-2">
+            Admin Email: test@admin.com <br />
+            Admin Password: test@123
+          </div>
+
           <div className="d-grid mt-2">
             <Button className="primary" type="submit">
               Login
             </Button>
           </div>
-          <div className="text-end">New here? <a href="/signup">Sign Up Now</a></div>
-
+          <div className="text-end">
+            New here? <a href="/signup">Sign Up Now</a>
+          </div>
         </Form>
       </div>
     </MainLayout>

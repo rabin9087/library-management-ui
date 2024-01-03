@@ -1,4 +1,4 @@
-import { Alert, Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { returnBurrowedBookAction } from "../../pages/burrow-history/burrowActions";
@@ -6,6 +6,7 @@ import Review from "../review/Review";
 import { CustomModal } from "../custome-modal/CustomModal";
 import { useState } from "react";
 import { setShowModal } from "../../system-state/systemSlice";
+import Search from "../searchComponent/Search";
 
 export const BurrowHistoryTable = ({ userId }) => {
   const [selectedBurrow, setSelectedBurrow] = useState({});
@@ -18,9 +19,8 @@ export const BurrowHistoryTable = ({ userId }) => {
   //applies to admin and students both
   if (userId) {
     burrows = burrows.filter((item) => item.userId === userId);
-    console.log(burrows);
   }
-
+  const [tempBooks, setTempBooks] = useState(burrows);
   const handelOnReturn = (_id, bookName) => {
     if (window.confirm(`Are you ready to return ${bookName} book?`)) {
       //call the api to update the booj and re fetch all the burrow history to synchronize the update via action
@@ -41,12 +41,20 @@ export const BurrowHistoryTable = ({ userId }) => {
       </CustomModal>
 
       <p className="d-flex justify-content-between">
-        <label htmlFor=""> {burrows.length} burrows history found!</label>
+        <label htmlFor=""> {tempBooks.length} burrows history found!</label>
+
+        {tempBooks.length === 0 && (
+          <div className="border p-2 shadow-lg rounded text-danger">
+            <h3 className=" text-danger ">No Book found!</h3>
+          </div>
+        )}
+
         <div>
-          <Form.Control
-            type="text"
-            placeholder="search book by name"
-            className="text"
+          <Search
+            data={tempBooks}
+            setSearchedData={setTempBooks}
+            type={"reviewBook"}
+            placeholder={"Search by book name"}
           />
         </div>
       </p>
@@ -64,7 +72,7 @@ export const BurrowHistoryTable = ({ userId }) => {
           </tr>
         </thead>
         <tbody>
-          {burrows.map(
+          {tempBooks.map(
             (
               {
                 _id,
@@ -97,19 +105,20 @@ export const BurrowHistoryTable = ({ userId }) => {
                 <td>{createdAt.slice?.(0, 10)} </td>
                 <td>{dueDate.slice?.(0, 10)} </td>
                 {userId ? (
-                  
                   <td>
-                    {isReturned ? ( reviewGiven ? (
-                    <span className="text-success">Review Recived</span>
-                  ):
-                      <Button
-                        variant="warning"
-                        onClick={() =>
-                          handelOnReview({ _id, bookId, bookName })
-                        }
-                      >
-                        Leave Review
-                      </Button>
+                    {isReturned ? (
+                      reviewGiven ? (
+                        <span className="text-success">Review Recived</span>
+                      ) : (
+                        <Button
+                          variant="warning"
+                          onClick={() =>
+                            handelOnReview({ _id, bookId, bookName })
+                          }
+                        >
+                          Leave Review
+                        </Button>
+                      )
                     ) : (
                       <Button onClick={() => handelOnReturn(_id, bookName)}>
                         Return Book
@@ -117,9 +126,7 @@ export const BurrowHistoryTable = ({ userId }) => {
                     )}{" "}
                   </td>
                 ) : (
-                  <td>
-                    {isReturned ?  "Returned" : "Not Yet"}
-                  </td>
+                  <td>{isReturned ? "Returned" : "Not Yet"}</td>
                 )}
               </tr>
             )

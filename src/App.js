@@ -38,6 +38,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
         <Route path='/book/:_id' element={<BookLanding />} />
+        <Route path='/*' element={<h1>Page doesnot exist</h1>} />
 
         {/* private pages  */}
         <Route path='/admin-signup' element={<AdminePrivateRouter><AdminSignup /></AdminePrivateRouter>} />

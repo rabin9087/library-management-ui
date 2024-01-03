@@ -4,11 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "react-bootstrap";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CustomInput from "../../components/custome-input/CustomInput";
-import {
-  deleteBookAction,
-  getABookAction,
-  updateBookAction,
-} from "./bookAction";
+import { getABookAction, updateBookAction } from "./bookAction";
 
 const UpdateBook = () => {
   const dispatch = useDispatch();
@@ -33,24 +29,17 @@ const UpdateBook = () => {
     if (!window.confirm("Are you sure you want to update this book?")) {
       return;
     }
-    const { __v, updatedAt, isAvailable, dueDate, isbn, createdAt, ...rest } = form;
+    const { __v, updatedAt, isAvailable, dueDate, isbn, createdAt, ...rest } =
+      form;
     dispatch(updateBookAction(rest)) && navigate("/books");
   };
-  
+
   const handelOnChange = (e) => {
     const { name, value } = e.target;
     setForm({
       ...form,
       [name]: value,
     });
-  };
-
-  const handelOnDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this book?")) {
-      //_id
-      const isDeleted = await dispatch(deleteBookAction(_id));
-      isDeleted && navigate("/books");
-    }
   };
 
   const inputs = [
@@ -138,11 +127,6 @@ const UpdateBook = () => {
             </Button>
           </div>
         </Form>
-        <div className="d-grid mt-3">
-          <Button variant="danger" onClick={handelOnDelete}>
-            Delete Book
-          </Button>
-        </div>
       </div>
     </UserLayout>
   );

@@ -4,8 +4,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getABookAction } from "./bookAction";
 import { Button, Col, Container, Row } from "react-bootstrap";
-import { FaStar } from "react-icons/fa";
-import { FaStarHalfAlt } from "react-icons/fa";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { postBurrowAction } from "../burrow-history/burrowActions";
 import ReviewStars from "../../components/review/ReviewStars";
@@ -44,11 +42,6 @@ const BookLanding = () => {
         "Are you sure want to burrow this book and return in 15 days ?"
       )
     ) {
-      console.log(
-        "bookSpecificReviews, averageRating",
-        bookSpecificReviews,
-        averageRating
-      );
       const obj = {
         bookId: _id,
         bookName: name,
@@ -59,7 +52,7 @@ const BookLanding = () => {
       dispatch(postBurrowAction(obj));
     }
 
-    navigate("/")
+    navigate("/");
   };
 
   const bookSpecificReviews = reviews.filter(
@@ -69,7 +62,7 @@ const BookLanding = () => {
   const averageRating =
     bookSpecificReviews.reduce((acc, item) => acc + item.rating, 0) /
     bookSpecificReviews.length;
-
+  console.log(averageRating);
   return (
     <MainLayout>
       <Container>

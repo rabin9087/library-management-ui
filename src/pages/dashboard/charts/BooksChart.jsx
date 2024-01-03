@@ -42,7 +42,7 @@ const BooksChart = ({ toolTips }) => {
         <CartesianGrid strokeDasharray={"3 3"} />
         <XAxis dataKey={"status"} interval={"preserveStartEnd"} />
         <YAxis />
-        <Line type={"monotone"} dataKey="Reviews Status" stroke="blue" />
+        <Line type={"bump"} dataKey="Reviews Status" stroke="blue" />
       </LineChart>
     </ResponsiveContainer>
   );

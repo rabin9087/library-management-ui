@@ -59,3 +59,17 @@ a {
 .new-star :hover {
   cursor: pointer;
 }
+
+.piechart {
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ItemNotFound{
+  display: flex;
+  margin-left: 40%;
+  align-items: center;
+  justify-content: center;
+}

@@ -1,39 +1,51 @@
 import { Button, Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteReviewAction, fetchReviewsAction, updateReviewAction } from "./bookAction";
-import { useEffect } from "react";
+import { AiFillDelete } from "react-icons/ai";
+import { deleteReviewAction, updateReviewAction } from "./bookAction";
+import { useState } from "react";
+import Search from "../../components/searchComponent/Search";
 
 export const ReviewTable = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { reviews } = useSelector((state) => state.bookInfo);
+  const [tempBooks, setTempBooks] = useState(reviews);
 
   const handelOnStatusUpdate = (e) => {
     const { value, checked } = e.target;
-    if(window.confirm("Are you sure want to update?")){
-      dispatch(updateReviewAction({
-        _id: value,
-        status: checked ? "active" : "inactive"
-      }))
+    if (window.confirm("Are you sure want to update?")) {
+      dispatch(
+        updateReviewAction({
+          _id: value,
+          status: checked ? "active" : "inactive",
+        })
+      );
     }
   };
 
   const handelOnDelete = (_id) => {
-    
-    if(window.confirm("Are you sure want to delete this review?")){
-      dispatch(deleteReviewAction(_id))
+    if (window.confirm("Are you sure want to delete this review?")) {
+      dispatch(deleteReviewAction(_id));
     }
   };
 
   return (
     <div className="m-3">
       <p className="d-flex justify-content-between">
-        <label htmlFor=""> {reviews.length} reviews found!</label>
+        <label htmlFor=""> {tempBooks.length} reviews found!</label>
+
+        {tempBooks.length === 0 && (
+          <div className="border p-2 shadow-lg rounded text-danger">
+            <h3 className=" text-danger ">No Book found!</h3>
+          </div>
+        )}
+
         <div>
-          <Form.Control
-            type="text"
-            placeholder="search book by name"
-            className="text"
+          <Search
+            data={reviews}
+            setSearchedData={setTempBooks}
+            type={"reviewBook"}
+            placeholder={"Search by book name"}
           />
         </div>
       </p>
@@ -51,7 +63,7 @@ export const ReviewTable = () => {
           </tr>
         </thead>
         <tbody>
-          {reviews.map(
+          {tempBooks.map(
             ({ _id, status, title, message, rating, bookName }, i) => (
               <tr key={i}>
                 <td>{1 + i}</td>
@@ -72,7 +84,15 @@ export const ReviewTable = () => {
                 <td>{message} ....</td>
                 <td>{rating}</td>
                 <td>
-                  <Button variant="danger" onClick={() =>handelOnDelete(_id)}>Delete</Button>
+                  <div className="d-flex justify-content-center align-items-center">
+                    <Button
+                      variant="danger"
+                      onClick={() => handelOnDelete(_id)}
+                      className="d-flex"
+                    >
+                      <AiFillDelete className="mt-1 me-1" /> Delete
+                    </Button>
+                  </div>
                 </td>
               </tr>
             )

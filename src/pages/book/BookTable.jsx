@@ -1,19 +1,48 @@
-import { Button, Form } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { AiFillDelete } from "react-icons/ai";
+import { FaEdit } from "react-icons/fa";
+import { deleteBookAction, getAllBooksAction } from "./bookAction";
+import Search from "../../components/searchComponent/Search";
 
 export const BookTabe = () => {
   const { books } = useSelector((state) => state.bookInfo);
+  const [tempBooks, setTempBooks] = useState(books);
+  const dispatch = useDispatch();
+
+  const handelOnDelete = async (_id, name) => {
+    if (window.confirm(`Are you sure you want to delete ${name} book?`)) {
+      //_id
+      await dispatch(deleteBookAction(_id));
+
+      return dispatch(getAllBooksAction());
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getAllBooksAction());
+  }, [dispatch]);
+
   return (
     <div className="m-3">
       <p className="d-flex justify-content-between">
-        <label htmlFor=""> {books.length} books found!</label>
+        <label htmlFor=""> {tempBooks.length} books found!</label>
+
+        {tempBooks.length === 0 && (
+          <div className="border p-2 shadow-lg rounded text-danger">
+            <h3 className=" text-danger ">No Book found!</h3>
+          </div>
+        )}
+
         <div>
-          <Form.Control
-            type="text"
-            placeholder="search book by name"
-            className="text"
+          <Search
+            data={books}
+            setSearchedData={setTempBooks}
+            type={"books"}
+            placeholder={"Search by book name"}
           />
         </div>
       </p>
@@ -30,7 +59,7 @@ export const BookTabe = () => {
           </tr>
         </thead>
         <tbody>
-          {books.map(
+          {tempBooks.map(
             (
               {
                 _id,
@@ -72,9 +101,24 @@ export const BookTabe = () => {
                 </td>
                 <td>{description.slice(0, 100)} ....</td>
                 <td>
-                  <Link to={`/edit-book/${_id}`}>
-                    <Button variant="warning">Edit</Button>
-                  </Link>
+                  <div className="d-grid mt-3 text-light gap-2">
+                    <Link to={`/edit-book/${_id}`} className="d-grid">
+                      <Button variant="warning">
+                        {" "}
+                        <FaEdit /> Edit
+                      </Button>
+                    </Link>
+
+                    <Link className="d-grid">
+                      <Button
+                        variant="danger"
+                        onClick={() => handelOnDelete(_id, name)}
+                        className="d-flex"
+                      >
+                        <AiFillDelete className="mt-1 me-1" /> Delete
+                      </Button>
+                    </Link>
+                  </div>
                 </td>
               </tr>
             )
