@@ -1,4 +1,4 @@
-import { Button, Form } from "react-bootstrap";
+import { Alert, Button, Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";
@@ -35,9 +35,7 @@ export const ReviewTable = () => {
         <label htmlFor=""> {tempBooks.length} reviews found!</label>
 
         {tempBooks.length === 0 && (
-          <div className="border p-2 shadow-lg rounded text-danger">
-            <h3 className=" text-danger ">No Book found!</h3>
-          </div>
+          <Alert variant="warning">No reviews found!</Alert>
         )}
 
         <div>
@@ -50,12 +48,13 @@ export const ReviewTable = () => {
         </div>
       </p>
 
-      <Table striped bordered hover className="">
+      <Table striped bordered hover>
         <thead>
           <tr>
             <th>S.N.</th>
             <th>status</th>
             <th>Book Name</th>
+            <th>Review Given By</th>
             <th>Review Title</th>
             <th>Message</th>
             <th>Rating</th>
@@ -64,7 +63,10 @@ export const ReviewTable = () => {
         </thead>
         <tbody>
           {tempBooks.map(
-            ({ _id, status, title, message, rating, bookName }, i) => (
+            (
+              { _id, status, title, message, rating, bookName, userName },
+              i
+            ) => (
               <tr key={i}>
                 <td>{1 + i}</td>
                 <td>
@@ -80,6 +82,7 @@ export const ReviewTable = () => {
                 <td>
                   <h4> {bookName}</h4>
                 </td>
+                <td>{userName}</td>
                 <td>{title}</td>
                 <td>{message} ....</td>
                 <td>{rating}</td>

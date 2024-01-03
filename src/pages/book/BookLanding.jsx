@@ -125,14 +125,15 @@ const BookLanding = () => {
                 {" "}
                 {bookSpecificReviews.map((review) => (
                   <div className="d-flex gap-3 shadow mb-4">
-                    <div className="avatar">RA</div>
+                    <div className="avatar">
+                      {review.userName?.match(/\b(\w)/g).join("")}
+                    </div>
                     <div className="review">
                       <h4>{review.title}</h4>
                       <p className="mb-3">
                         <ReviewStars averageRating={review.rating} />
                         <small>{review.createdAt?.slice(0, 10)}</small>
                       </p>
-                      <p className="lorem"></p>
                     </div>
                   </div>
                 ))}

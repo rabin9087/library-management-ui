@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { returnBurrowedBookAction } from "../../pages/burrow-history/burrowActions";
@@ -44,9 +44,7 @@ export const BurrowHistoryTable = ({ userId }) => {
         <label htmlFor=""> {tempBooks.length} burrows history found!</label>
 
         {tempBooks.length === 0 && (
-          <div className="border p-2 shadow-lg rounded text-danger">
-            <h3 className=" text-danger ">No Book found!</h3>
-          </div>
+          <Alert variant="warning">No book found!</Alert>
         )}
 
         <div>

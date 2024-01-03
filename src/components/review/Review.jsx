@@ -2,11 +2,14 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import CustomInput from "../custome-input/CustomInput";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postNewReviewAction } from "../../pages/book/bookAction";
 
 const Review = ({ bookId, _id, bookName }) => {
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.userInfo);
+  const { fName, lName } = user;
+  const userName = fName + " " + lName;
   const [form, setForm] = useState({ rating: 5 });
   const handelOnStar = (rating) => {
     setForm({
@@ -22,14 +25,15 @@ const Review = ({ bookId, _id, bookName }) => {
 
   const handelOnSubmit = (e) => {
     e.preventDefault();
-    const obj = { ...form, bookId, burrowHistoryId: _id, bookName };
-    dispatch(postNewReviewAction(obj))
+    const obj = { ...form, bookId, burrowHistoryId: _id, bookName, userName };
+    dispatch(postNewReviewAction(obj));
     //call api to create new review in the review table
   };
 
   return (
     <div>
       <Form onSubmit={handelOnSubmit}>
+        <h3>{fName + " " + lName}</h3>
         <h3>You are giving reviews to {bookName}</h3>
         <CustomInput
           name="title"
@@ -45,14 +49,14 @@ const Review = ({ bookId, _id, bookName }) => {
             {Array(5)
               .fill("")
               .map((str, i) => (
-                <FaStar key={i}
+                <FaStar
+                  key={i}
                   className={
                     form.rating > i ? "new-star text-warning" : "new-start"
                   }
                   onClick={() => handelOnStar(i + 1)}
                 />
               ))}
-           
           </div>
         </Form.Group>
 

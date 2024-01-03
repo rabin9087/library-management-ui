@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -23,9 +23,7 @@ export const UsersTable = ({ role }) => {
         </label>
 
         {tempUsers.length === 0 && (
-          <div className="border p-2 shadow-lg rounded text-danger">
-            <h3 className=" text-danger ">No users found!</h3>
-          </div>
+          <Alert variant="warning">No user found!</Alert>
         )}
         <div>
           <Search
