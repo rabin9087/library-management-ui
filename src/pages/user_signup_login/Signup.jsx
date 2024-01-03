@@ -4,6 +4,7 @@ import { Form, Button } from "react-bootstrap";
 import { postAdminUser, postUser } from "../../helper/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { MainLayout } from "../../components/layout/MainLayout";
 
 const initialState = {
   fName: "",
@@ -91,27 +92,29 @@ const AdminSignup = () => {
     },
   ];
   return (
-    <div className=" p-3 ">
-      <Form
-        onSubmit={handelOnSubmit}
-        className="form-center border shaow-lg p-4"
-      >
-        <h2>Create New Account</h2>
-        <hr />
-        {inputs.map((item, i) => (
-          <CustomInput key={i} {...item} onChange={handelOnChange} />
-        ))}
+    <MainLayout>
+      <div className=" p-3 ">
+        <Form
+          onSubmit={handelOnSubmit}
+          className="form-center border shaow-lg p-4"
+        >
+          <h2>Create New Account</h2>
+          <hr />
+          {inputs.map((item, i) => (
+            <CustomInput key={i} {...item} onChange={handelOnChange} />
+          ))}
 
-        <div className="d-grid mt-2">
-          <Button className="primary" type="submit">
-            Sign up
-          </Button>
-        </div>
-        <div className="text-end mt-4">
-          Already got an account? <a href="/login">Login</a>
-        </div>
-      </Form>
-    </div>
+          <div className="d-grid mt-2">
+            <Button className="primary" type="submit">
+              Sign up
+            </Button>
+          </div>
+          <div className="text-end mt-4">
+            Already got an account? <a href="/login">Login</a>
+          </div>
+        </Form>
+      </div>
+    </MainLayout>
   );
 };
 
