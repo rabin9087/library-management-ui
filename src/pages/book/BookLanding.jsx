@@ -3,7 +3,7 @@ import { MainLayout } from "../../components/layout/MainLayout";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getABookAction } from "./bookAction";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Alert, Button, Col, Container, Row } from "react-bootstrap";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { postBurrowAction } from "../burrow-history/burrowActions";
 import ReviewStars from "../../components/review/ReviewStars";
@@ -123,6 +123,9 @@ const BookLanding = () => {
             {showReview ? (
               <>
                 {" "}
+                {bookSpecificReviews.length < 1 && (
+                  <Alert variant="warning">No reviews available!</Alert>
+                )}
                 {bookSpecificReviews.map((review) => (
                   <div className="d-flex gap-3 shadow mb-4">
                     <div className="avatar">
