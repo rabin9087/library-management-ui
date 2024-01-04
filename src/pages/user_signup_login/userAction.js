@@ -1,4 +1,4 @@
-import { LogoutUser, getAllUsers, getNewAccessJwt, getUser, postUser } from "../../helper/axiosHelper";
+import { LogoutUser, getAllUsers, getNewAccessJwt, getUser } from "../../helper/axiosHelper";
 import { setAllUser, setUser } from './userSlice'
 
 export const getUserAction = () => async (dispatch) => {

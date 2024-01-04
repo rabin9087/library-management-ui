@@ -3,12 +3,17 @@ import Table from "react-bootstrap/Table";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Search from "../searchComponent/Search";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const UsersTable = ({ role }) => {
   const { allUsers } = useSelector((state) => state.userInfo);
   const users = allUsers.filter((item) => item.role === role);
   const [tempUsers, setTempUsers] = useState(users);
+
+  useEffect(() => {
+    setTempUsers(users);
+  }, [users]);
+
   return (
     <div className="m-3">
       <div className="text-end mb-4">

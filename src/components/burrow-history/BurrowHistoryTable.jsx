@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { returnBurrowedBookAction } from "../../pages/burrow-history/burrowActions";
 import Review from "../review/Review";
 import { CustomModal } from "../custome-modal/CustomModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setShowModal } from "../../system-state/systemSlice";
 import Search from "../searchComponent/Search";
 
@@ -33,6 +33,10 @@ export const BurrowHistoryTable = ({ userId }) => {
     //show modal
     dispatch(setShowModal(true));
   };
+
+  useEffect(() => {
+    setTempBooks(burrows);
+  }, [burrows]);
 
   return (
     <div className="m-3">

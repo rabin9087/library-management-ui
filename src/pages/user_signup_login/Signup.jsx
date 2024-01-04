@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { Form, Button } from "react-bootstrap";
-import { postAdminUser, postUser } from "../../helper/axiosHelper";
+import { postUser } from "../../helper/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { MainLayout } from "../../components/layout/MainLayout";
@@ -17,6 +17,7 @@ const initialState = {
 
 const AdminSignup = () => {
   const [form, setForm] = useState(initialState);
+  const [isPending, setIsPending] = useState(false);
   const navigateAdminLogin = useNavigate();
 
   const handelOnChange = (e) => {
@@ -30,7 +31,7 @@ const AdminSignup = () => {
     if (confirmPassword !== rest.password) {
       return alert("Password do not match!");
     }
-
+    setIsPending(true);
     const pending = postUser(rest);
 
     toast.promise(pending, {
@@ -38,6 +39,7 @@ const AdminSignup = () => {
     });
 
     const { status, message } = await pending;
+    setIsPending(false);
     toast[status](message);
     if (status === "success") {
       navigateAdminLogin("/login");
@@ -105,7 +107,7 @@ const AdminSignup = () => {
           ))}
 
           <div className="d-grid mt-2">
-            <Button className="primary" type="submit">
+            <Button className="primary" type="submit" disabled={isPending}>
               Sign up
             </Button>
           </div>

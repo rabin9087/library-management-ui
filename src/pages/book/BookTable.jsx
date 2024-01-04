@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Alert, Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -16,9 +17,9 @@ export const BookTabe = () => {
   const handelOnDelete = async (_id, name) => {
     if (window.confirm(`Are you sure you want to delete ${name} book?`)) {
       //_id
-      await dispatch(deleteBookAction(_id));
-
-      return dispatch(getAllBooksAction());
+      dispatch(deleteBookAction(_id));
+      dispatch(getAllBooksAction());
+      return setTempBooks(books);
     }
   };
 
@@ -26,9 +27,13 @@ export const BookTabe = () => {
     dispatch(getAllBooksAction());
   }, [dispatch]);
 
+  useEffect(() => {
+    setTempBooks(books);
+  }, [books]);
+
   return (
     <div className="m-3">
-      <p className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between">
         <label htmlFor=""> {tempBooks.length} books found!</label>
 
         {tempBooks.length === 0 && (
@@ -43,9 +48,9 @@ export const BookTabe = () => {
             placeholder={"Search by book name"}
           />
         </div>
-      </p>
+      </div>
 
-      <Table striped bordered hover className="">
+      <Table striped bordered hover className="table-container mt-2 ">
         <thead>
           <tr>
             <th>S.N.</th>

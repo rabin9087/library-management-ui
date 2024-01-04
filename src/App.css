@@ -60,8 +60,7 @@ a {
   cursor: pointer;
 }
 
-.piechart {
-  height: 300px;
+.pieChart {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,4 +71,9 @@ a {
   margin-left: 40%;
   align-items: center;
   justify-content: center;
+}
+.table-container{
+  width:100vw;
+  overflow-x: auto;
+  border: 1px solid black;
 }

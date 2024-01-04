@@ -1,19 +1,18 @@
 import { toast } from "react-toastify"
 import { deleteBook, deleteReview, fetchReview, getBook, postBook, postReview, updateBook, updateReview } from "../../helper/axiosHelper"
 import { setBooks, setABook, setReviews } from "./bookSlice"
-import { useDispatch } from "react-redux"
 import { setShowModal } from "../../system-state/systemSlice"
 import { fetchBurrowsAction } from "../burrow-history/burrowActions"
 
 export const getAllBooksAction = () => async (dispatch) => {
-    const { status, message, books } = await getBook()
+    const { status, books } = await getBook()
     if (status === "success") {
         dispatch(setBooks(books))
     }
 }
 
 export const getABookAction = (_id) => async (dispatch) => {
-    const { status, message, books } = await getBook(_id)
+    const { status, books } = await getBook(_id)
     if (status === "success") {
         dispatch(setABook(books))
     }

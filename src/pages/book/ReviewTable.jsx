@@ -3,7 +3,7 @@ import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDelete } from "react-icons/ai";
 import { deleteReviewAction, updateReviewAction } from "./bookAction";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Search from "../../components/searchComponent/Search";
 
 export const ReviewTable = () => {
@@ -28,6 +28,10 @@ export const ReviewTable = () => {
       dispatch(deleteReviewAction(_id));
     }
   };
+
+  useEffect(() => {
+    setTempBooks(reviews);
+  }, [reviews]);
 
   return (
     <div className="m-3">

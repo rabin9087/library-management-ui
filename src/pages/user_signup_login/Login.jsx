@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MainLayout } from "../../components/layout/MainLayout";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Spinner } from "react-bootstrap";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { toast } from "react-toastify";
 import { loginUser } from "../../helper/axiosHelper";
@@ -15,7 +15,7 @@ const Login = () => {
   const emailRef = useRef("");
   const passwordRef = useRef("");
   const { user } = useSelector((state) => state.userInfo);
-
+  const [isPending, setIsPending] = useState(false);
   const fromLoaction =
     location?.state?.from?.location?.pathname || "/dashboard";
   const handelOnSubmit = async (e) => {
@@ -28,9 +28,13 @@ const Login = () => {
     if (!email || !password) {
       toast.error("Please insert both email and password");
     }
-
-    const { status, message, jwts } = await loginUser({ email, password });
-
+    setIsPending(true);
+    const pending = loginUser({ email, password });
+    toast.promise(pending, {
+      pending: "Please wait",
+    });
+    const { status, message, jwts } = await pending;
+    setIsPending(false);
     if (status === "success") {
       const { accessJWT, refreshJWT } = jwts;
       sessionStorage.setItem("accessJWT", accessJWT);
@@ -89,8 +93,8 @@ const Login = () => {
             Admin Password: test@123
           </div>
 
-          <div className="d-grid mt-2">
-            <Button className="primary" type="submit">
+          <div className="d-grid mt-2 ">
+            <Button className="primary" type="submit" disabled={isPending}>
               Login
             </Button>
           </div>

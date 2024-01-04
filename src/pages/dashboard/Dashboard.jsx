@@ -25,9 +25,9 @@ const Dashboard = () => {
 
   return (
     <UserLayout title="Dashboard">
-      <Container>
+      <Container fluid>
         <Row className="mb-5">
-          <Col>
+          <Col lg={6} xs={12} className="mt-5 border p-3">
             <BooksHistoryChart
               toolTips={
                 <Tooltip contentStyle={{ backgroundColor: "yellow" }} />
@@ -35,7 +35,7 @@ const Dashboard = () => {
             />
           </Col>
 
-          <Col>
+          <Col lg={6} xs={12} className="mt-5 border p-3">
             <BooksChart
               toolTips={
                 <Tooltip contentStyle={{ backgroundColor: "yellow" }} />
@@ -46,15 +46,13 @@ const Dashboard = () => {
 
         {user?.role === "admin" && (
           <Row>
-            <Col className="piechart">
-              <BooksStatusChart
-                toolTips={
-                  <Tooltip contentStyle={{ backgroundColor: "yellow" }} />
-                }
-              />
+            <Col lg={6} xs={12} className="mt-5 border p-3">
+              <div className="pieChart">
+                <BooksStatusChart />
+              </div>
             </Col>
 
-            <Col>
+            <Col lg={6} xs={12} className="mt-5  border p-3">
               <RolesChart
                 toolTips={
                   <Tooltip contentStyle={{ backgroundColor: "yellow" }} />

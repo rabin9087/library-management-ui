@@ -18,6 +18,7 @@ const initialState = {
 
 const AdminSignup = () => {
   const [form, setForm] = useState(initialState);
+  const [isPending, setIsPending] = useState(false);
   const navigateAdminLogin = useNavigate();
 
   const { user } = useSelector((state) => state.userInfo);
@@ -34,7 +35,7 @@ const AdminSignup = () => {
     if (confirmPassword !== rest.password) {
       return alert("Password do not match!");
     }
-
+    setIsPending(true);
     const pending = postUser(rest, role);
 
     toast.promise(pending, {
@@ -42,6 +43,7 @@ const AdminSignup = () => {
     });
 
     const { status, message } = await pending;
+    setIsPending(false);
     toast[status](message);
     if (status === "success") {
       navigateAdminLogin("/login");
@@ -109,7 +111,7 @@ const AdminSignup = () => {
           ))}
 
           <div className="d-grid mt-2">
-            <Button className="primary" type="submit">
+            <Button className="primary" type="submit" disabled={isPending}>
               Create New Admin
             </Button>
           </div>

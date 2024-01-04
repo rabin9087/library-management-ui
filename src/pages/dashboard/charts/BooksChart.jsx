@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllBooksAction } from "../../book/bookAction";
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   CartesianGrid,
   Legend,
@@ -10,10 +9,8 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import { Tooltip } from "react-bootstrap";
 
 const BooksChart = ({ toolTips }) => {
-  const dispatch = useDispatch();
   const { reviews } = useSelector((state) => state.bookInfo);
   const activeReviews = reviews.filter((item) => item.status === "active");
   const inActiveReviews = reviews.filter((item) => item.status === "inactive");
