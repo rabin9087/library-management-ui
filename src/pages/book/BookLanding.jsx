@@ -62,7 +62,6 @@ const BookLanding = () => {
   const averageRating =
     bookSpecificReviews.reduce((acc, item) => acc + item.rating, 0) /
     bookSpecificReviews.length;
-  console.log(averageRating);
   return (
     <MainLayout>
       <Container>

@@ -7,7 +7,6 @@ const maxStar = 5;
 const ReviewStars = ({ averageRating }) => {
   const fullRating = Math.floor(averageRating); // natural whole number
   const isHalfStar = averageRating > fullRating; //true or false
-  console.log(isHalfStar);
   const emptyStar = isHalfStar
     ? maxStar - fullRating - 1
     : maxStar - fullRating;
@@ -20,8 +19,7 @@ const ReviewStars = ({ averageRating }) => {
           .map((item, i) => (
             <FaStar className="text-warning" key={i} />
           ))}
-
-        {isHalfStar         && <FaStarHalfAlt className="text-warning" />}
+        {isHalfStar && <FaStarHalfAlt className="text-warning" />}
         {Array(emptyStar)
           .fill("")
           .map((item, i) => (
