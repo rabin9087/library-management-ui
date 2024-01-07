@@ -43,6 +43,10 @@ export const BurrowHistoryTable = ({ userId }) => {
     dispatch(fetchBurrowsAction());
   }, [dispatch]);
 
+  useEffect(() => {
+    setTempBooks(burrows);
+  }, [burrows]);
+
   return (
     <div className="m-3 min-vh-100">
       <CustomModal title="Give Reviews" show={true}>
