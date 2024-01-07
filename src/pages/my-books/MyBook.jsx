@@ -1,23 +1,17 @@
-import React, { useEffect } from 'react'
-import { UserLayout } from '../../components/layout/UserLayout'
-import { BurrowHistoryTable } from '../../components/burrow-history/BurrowHistoryTable'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchBurrows } from '../../helper/axiosHelper'
-import { fetchBurrowsAction } from '../burrow-history/burrowActions'
+import React from "react";
+import { UserLayout } from "../../components/layout/UserLayout";
+import { BurrowHistoryTable } from "../../components/burrow-history/BurrowHistoryTable";
+import { useSelector } from "react-redux";
 
 const MyBook = () => {
-  const dispatch = useDispatch();
-
-  const {user} = useSelector((state) => state.userInfo)
-  useEffect(() => {
-     dispatch(fetchBurrowsAction())
-  }, [ dispatch])
-
+  const { user } = useSelector((state) => state.userInfo);
   return (
-    <UserLayout title ="My Books">
-      <BurrowHistoryTable userId = {user?._id}/>
+    <UserLayout title="My Books">
+      <div className="contentHeight">
+        <BurrowHistoryTable userId={user?._id} />
+      </div>
     </UserLayout>
-  )
-}
+  );
+};
 
-export default MyBook
+export default MyBook;

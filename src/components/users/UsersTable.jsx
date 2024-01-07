@@ -10,12 +10,12 @@ export const UsersTable = ({ role }) => {
   const users = allUsers.filter((item) => item.role === role);
   const [tempUsers, setTempUsers] = useState(users);
 
-  useEffect(() => {
-    setTempUsers(users);
-  }, [users]);
+  // useEffect(() => {
+  //   setTempUsers(users);
+  // }, [users]);
 
   return (
-    <div className="m-3">
+    <div className="m-3 ">
       <div className="text-end mb-4">
         <Link to={"/admin-signup"}>
           <Button>Add New Admin</Button>
@@ -45,6 +45,7 @@ export const UsersTable = ({ role }) => {
           <tr>
             <th>S.N.</th>
             <th>status</th>
+            <th>Role</th>
             <th>Name</th>
             <th>Phone</th>
             <th>email</th>
@@ -56,7 +57,15 @@ export const UsersTable = ({ role }) => {
             ({ _id, status, fName, lName, email, phone, createdAt }, i) => (
               <tr key={_id}>
                 <td>{1 + i}.</td>
-                <td>{status}</td>
+                <td
+                  className={
+                    status === "active" ? "text-success" : "text-warning"
+                  }
+                >
+                  {" "}
+                  {status}
+                </td>
+                <td> {role}</td>
                 <td>{fName + " " + lName}</td>
                 <td>{phone}</td>
                 <td>{email}</td>

@@ -1,7 +1,12 @@
-import { Alert, Button } from "react-bootstrap";
+import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
-import { returnBurrowedBookAction } from "../../pages/burrow-history/burrowActions";
+import {
+  fetchBurrowsAction,
+  returnBurrowedBookAction,
+} from "../../pages/burrow-history/burrowActions";
 import Review from "../review/Review";
 import { CustomModal } from "../custome-modal/CustomModal";
 import { useEffect, useState } from "react";
@@ -13,14 +18,14 @@ export const BurrowHistoryTable = ({ userId }) => {
   //If this is requested from all burrow history
   const dispatch = useDispatch();
   let { burrows } = useSelector((state) => state.burrowInfo);
-
+  const [tempBooks, setTempBooks] = useState(burrows);
   //if show only admins burrow books list
 
   //applies to admin and students both
   if (userId) {
     burrows = burrows.filter((item) => item.userId === userId);
   }
-  const [tempBooks, setTempBooks] = useState(burrows);
+
   const handelOnReturn = (_id, bookName) => {
     if (window.confirm(`Are you ready to return ${bookName} book?`)) {
       //call the api to update the booj and re fetch all the burrow history to synchronize the update via action
@@ -35,11 +40,11 @@ export const BurrowHistoryTable = ({ userId }) => {
   };
 
   useEffect(() => {
-    setTempBooks(burrows);
-  }, [burrows]);
+    dispatch(fetchBurrowsAction());
+  }, [dispatch]);
 
   return (
-    <div className="m-3">
+    <div className="m-3 min-vh-100">
       <CustomModal title="Give Reviews" show={true}>
         <Review {...selectedBurrow} />
       </CustomModal>
@@ -53,7 +58,7 @@ export const BurrowHistoryTable = ({ userId }) => {
 
         <div>
           <Search
-            data={tempBooks}
+            data={burrows}
             setSearchedData={setTempBooks}
             type={"reviewBook"}
             placeholder={"Search by book name"}
@@ -84,7 +89,6 @@ export const BurrowHistoryTable = ({ userId }) => {
                 bookName,
                 dueDate,
                 isReturned,
-                returnedDate,
                 createdAt,
                 reviewGiven,
               },

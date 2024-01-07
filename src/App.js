@@ -30,9 +30,11 @@ function App() {
     dispatch(fetchReviewsAction())
   }, [dispatch])
 
+
+
   return (
-    <div className="">
-      <Routes>
+    <div className="app">
+      <Routes className="">
         {/* public pages  */}
         <Route path='/' element={<Home />} />
         <Route path='/login' element={<Login />} />
@@ -64,6 +66,7 @@ function App() {
         draggable
         pauseOnHover
         theme="colored" />
+
     </div>
   );
 }

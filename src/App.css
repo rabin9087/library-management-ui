@@ -1,5 +1,5 @@
-.main {
-  min-height: 80vh;
+.contentHeight{
+  min-height: 100vh;
 }
 
 .form-center{
@@ -38,7 +38,6 @@ a {
   width: 100px;
   height: 100px;
   border-radius:  50%;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -77,3 +76,4 @@ a {
   overflow-x: auto;
   border: 1px solid black;
 }
+

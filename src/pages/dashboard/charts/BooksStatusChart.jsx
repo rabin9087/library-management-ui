@@ -40,7 +40,7 @@ const BooksStatusChart = ({ toolTips }) => {
   };
 
   return (
-    <ResponsiveContainer width="50%" aspect={2} className="ps-3 ">
+    <ResponsiveContainer width="45%" aspect={2} className="ps-3 ">
       <Pie data={data} options={options} />;
     </ResponsiveContainer>
   );

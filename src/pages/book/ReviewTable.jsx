@@ -34,7 +34,7 @@ export const ReviewTable = () => {
   }, [reviews]);
 
   return (
-    <div className="m-3">
+    <div className="m-3 min-vh-100">
       <p className="d-flex justify-content-between">
         <label htmlFor=""> {tempBooks.length} reviews found!</label>
 

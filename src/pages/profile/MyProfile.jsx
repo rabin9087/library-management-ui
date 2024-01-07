@@ -1,30 +1,36 @@
-import React from 'react'
-import { UserLayout } from '../../components/layout/UserLayout'
-import { useDispatch, useSelector } from 'react-redux';
-import { Container, Row } from 'react-bootstrap';
+import React from "react";
+import { UserLayout } from "../../components/layout/UserLayout";
+import { useSelector } from "react-redux";
+import { Container, Row } from "react-bootstrap";
 
 const MyProfile = () => {
-  const dispatch = useDispatch()
   const { user } = useSelector((state) => state.userInfo);
-  const {fName, lName, email, phone, role} = user
+  const { fName, lName, email, phone, role } = user;
   return (
-  <UserLayout title ="My Profile">
-      <Container fluid>
+    <UserLayout title="My Profile">
+      <Container fluid className="contentHeight">
         <Row>
-            <h6> Full Name: {fName} {lName}</h6>
+          <h6>
+            {" "}
+            Full Name: {fName} {lName}
+          </h6>
         </Row>
         <Row>
-            <h6> Email: {email}</h6>
+          <h6> Email: {email}</h6>
         </Row>
         <Row>
-            <h6> Phone: {phone}</h6>
+          <h6> Phone: {phone}</h6>
         </Row>
         <Row>
-            <h6> Role: {role.slice(0,1).toUpperCase()}{role.slice(1)}</h6>
+          <h6>
+            {" "}
+            Role: {role.slice(0, 1).toUpperCase()}
+            {role.slice(1)}
+          </h6>
         </Row>
       </Container>
     </UserLayout>
-  )
-}
+  );
+};
 
-export default MyProfile
+export default MyProfile;
