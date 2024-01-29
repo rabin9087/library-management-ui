@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { Form, Button } from "react-bootstrap";
-import { postAdminUser, postUser } from "../../helper/axiosHelper";
+import { postUser } from "../../helper/axiosHelper";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { UserLayout } from "../../components/layout/UserLayout";

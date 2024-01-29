@@ -23,7 +23,6 @@ const Login = () => {
 
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
-    console.log(email, password);
 
     if (!email || !password) {
       toast.error("Please insert both email and password");
