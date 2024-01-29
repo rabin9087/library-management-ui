@@ -111,7 +111,7 @@ const BookLanding = () => {
             <div className="button-group">
               <ButtonGroup aria-label="Basic example">
                 <Button variant="primary" onClick={() => setShowReview(false)}>
-                  Description
+                  Descriptions
                 </Button>
                 <Button variant="warning" onClick={() => setShowReview(true)}>
                   Reviews
