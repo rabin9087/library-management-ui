@@ -1,5 +1,5 @@
 import axios from 'axios'
-const rootEP = process.env.REACT_APP_ROOTAPI;
+const rootEP = process.env.REACT_APP_ROOTAPI+ "/api/v1";
 const userEP = rootEP + "/users";
 const bookEP = rootEP + "/books"
 const burrowEP = rootEP + "/burrows"
