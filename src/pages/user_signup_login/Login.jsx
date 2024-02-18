@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { MainLayout } from "../../components/layout/MainLayout";
-import { Button, Form, Spinner } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import CustomInput from "../../components/custome-input/CustomInput";
 import { toast } from "react-toastify";
 import { loginUser } from "../../helper/axiosHelper";
 import { autoLogin, getUserAction } from "./userAction";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { FaRegCopy } from "react-icons/fa6";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -45,6 +46,14 @@ const Login = () => {
       return;
     }
     toast[status](message);
+  };
+
+  const copyPassword = (password) => {
+    return navigator.clipboard.writeText(password);
+  };
+
+  const copyEmail = (email) => {
+    return navigator.clipboard.writeText(email);
   };
 
   useEffect(() => {
@@ -87,9 +96,28 @@ const Login = () => {
             <CustomInput key={i} {...item} />
           ))}
 
-          <div className="d-flex justify-content-center border shaow-lg p-2">
-            Admin Email: test@admin.com <br />
-            Admin Password: test@123
+          <div className="flex align-items-center border shaow-lg p-2">
+            <div className="d-flex align-items-center">
+              Admin Email: test@admin.com
+              <Button
+                variant="secondry"
+                onClick={() => copyEmail("test@admin.com")}
+              >
+                <FaRegCopy />
+              </Button>
+            </div>
+            <div className="d-flex align-items-center">
+              Admin Password: test@123
+              <Button
+                className=""
+                variant="secondry"
+                onClick={() => copyPassword("test@123")}
+              >
+                <FaRegCopy />
+              </Button>
+            </div>
+            <br />
+            <br />
           </div>
 
           <div className="d-grid mt-2 ">
@@ -97,7 +125,7 @@ const Login = () => {
               Login
             </Button>
           </div>
-          <div className="text-end">
+          <div className="text-end mt-2">
             New here? <a href="/signup">Sign Up Now</a>
           </div>
         </Form>
